@@ -4,12 +4,17 @@
  */
 package supermarket;
 
-import com.sun.jdi.connect.spi.Connection;
-import java.beans.Statement;
+//import com.sun.jdi.connect.spi.Connection;
+import java.sql.Statement;
 import java.sql.ResultSet;
-import java.sql.*;
+import java.sql.Driver;
+import java.sql.DriverManager;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import javax.swing.JOptionPane;
-import java.lang.*;
+import javax.swing.table.DefaultTableModel;
+//import java.lang.*;
+import net.proteanit.sql.DbUtils;
 /**
  *
  * @author ranco
@@ -18,13 +23,14 @@ public class Account extends javax.swing.JFrame {
 
     public Account() {
         initComponents();
+        SelectAccount();
     }
 
 Connection Con = null;
 Statement St = null;
 ResultSet Rs = null;
-private static java.sql.Connection Conn;
-
+private static java.beans.Statement Stt;
+private static java.sql.ResultSet Rss;
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -123,6 +129,11 @@ private static java.sql.Connection Conn;
         DeleteBtn.setForeground(new java.awt.Color(153, 153, 255));
         DeleteBtn.setText("Delete");
         DeleteBtn.setBorder(new javax.swing.border.MatteBorder(null));
+        DeleteBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                DeleteBtnMouseClicked(evt);
+            }
+        });
         DeleteBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 DeleteBtnActionPerformed(evt);
@@ -133,6 +144,11 @@ private static java.sql.Connection Conn;
         ClearBtn.setForeground(new java.awt.Color(153, 153, 255));
         ClearBtn.setText("Clear");
         ClearBtn.setBorder(new javax.swing.border.MatteBorder(null));
+        ClearBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ClearBtnMouseClicked(evt);
+            }
+        });
         ClearBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ClearBtnActionPerformed(evt);
@@ -155,6 +171,11 @@ private static java.sql.Connection Conn;
         AccountsTable.setIntercellSpacing(new java.awt.Dimension(0, 0));
         AccountsTable.setRowHeight(25);
         AccountsTable.setSelectionBackground(new java.awt.Color(153, 153, 255));
+        AccountsTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                AccountsTableMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(AccountsTable);
 
         jLabel11.setFont(new java.awt.Font("Arial", 1, 20)); // NOI18N
@@ -307,21 +328,70 @@ private static java.sql.Connection Conn;
     private void ClearBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClearBtnActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ClearBtnActionPerformed
-
+    public void SelectAccount() {
+        try{
+            Con = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=qlbh_onl;encrypt=true;trustServerCertificate=true;", "kubi", "28112001");
+            St = (Statement) Con.createStatement();
+            Rs = St.executeQuery("select * from dbo.ACCOUNT order by ROLES ASC");
+            AccountsTable.setModel(DbUtils.resultSetToTableModel(Rs));
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+    }
     private void AddBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AddBtnMouseClicked
         // TODO add your handling code here:
+        if (emailVar.getText().isEmpty() || passVar.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Missing infomation !!!");
+        } else {
+            
+        }
         try{
-            Conn = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=qlbh_onl;encrypt=true;trustServerCertificate=true;", "kubi", "28112001");
-            PreparedStatement add = Conn.prepareStatement("insert into ACCOUNT values(?,?,?)");
+            Con = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=qlbh_onl;encrypt=true;trustServerCertificate=true;", "kubi", "28112001");
+            PreparedStatement add = Con.prepareStatement("insert into ACCOUNT values(?,?,?)");
                 add.setString(1, emailVar.getText());
                 add.setInt(2, Integer.valueOf(passVar.getText()));
                 add.setString(3, roleVar.getSelectedItem().toString());
                 int row =  add.executeUpdate();
-                JOptionPane.showMessageDialog(this, "Account have just been added");
+                JOptionPane.showMessageDialog(this, "Account have just been added !!!");
+                Con.close();
+                SelectAccount();
         } catch (Exception e){
             e.printStackTrace();
         }
     }//GEN-LAST:event_AddBtnMouseClicked
+
+    private void AccountsTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AccountsTableMouseClicked
+        // TODO add your handling code here:
+        DefaultTableModel model = (DefaultTableModel)AccountsTable.getModel ();
+        int Myindex = AccountsTable.getSelectedRow();
+        emailVar.setText (model.getValueAt (Myindex, 0).toString());
+        passVar.setText (model.getValueAt (Myindex, 1).toString());
+    }//GEN-LAST:event_AccountsTableMouseClicked
+
+    private void ClearBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ClearBtnMouseClicked
+        // TODO add your handling code here:
+        emailVar.setText("");
+        passVar.setText("");
+    }//GEN-LAST:event_ClearBtnMouseClicked
+
+    private void DeleteBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DeleteBtnMouseClicked
+        // TODO add your handling code here:
+        if(emailVar.getText().isEmpty()){
+            JOptionPane.showMessageDialog(this, "Click Account you want to delete !!!");
+        } else {
+            try{
+            Con = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=qlbh_onl;encrypt=true;trustServerCertificate=true;", "kubi", "28112001");
+            String sEmail = emailVar.getText();
+            String Query = "Delete from dbo.ACCOUNT where Email=" + sEmail;
+            Statement Add = Con.createStatement();
+            Add.executeUpdate(Query);
+            SelectAccount();
+            JOptionPane.showMessageDialog(this, "Account Deleted Successfully");
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+    }//GEN-LAST:event_DeleteBtnMouseClicked
     /**
      * @param args the command line arguments
      */
