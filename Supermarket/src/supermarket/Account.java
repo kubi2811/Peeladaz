@@ -381,13 +381,22 @@ private static java.sql.ResultSet Rss;
         } else {
             try{
             Con = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=qlbh_onl;encrypt=true;trustServerCertificate=true;", "kubi", "28112001");
-            String sEmail = emailVar.getText();
-            String Query = "Delete from dbo.ACCOUNT where Email='GIAMINH'" + sEmail;
-            PreparedStatement add = Con.prepareStatement("DELELE  from dbo.ACCOUNT where Email = ?");
-            add.setString(1, sEmail);
+//            String sEmail = emailVar.getText();
+//            String Query = "Delete from dbo.ACCOUNT where Email='GIAMINH'" + sEmail;
+            PreparedStatement add = Con.prepareStatement("DELETE FROM PARTNERS where Email =?");
+            add.setString(1, emailVar.getText());
+            add.executeUpdate();
             
-            Statement Add = Con.createStatement();
-            Add.executeUpdate(Query);
+            PreparedStatement add3 = Con.prepareStatement("DELETE FROM SHIPPER where Email =?");
+            add3.setString(1, emailVar.getText());
+            add3.executeUpdate();
+            
+            PreparedStatement add2 = Con.prepareStatement("DELETE FROM ACCOUNT where Email =?");
+            add2.setString(1, emailVar.getText());
+            add2.executeUpdate();
+//            Statement Add = Con.createStatement();
+            
+//            Add.executeUpdate(Query);
             SelectAccount();
             JOptionPane.showMessageDialog(this, "Account Deleted Successfully");
             } catch (Exception e){
