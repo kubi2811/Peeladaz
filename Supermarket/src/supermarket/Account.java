@@ -11,6 +11,7 @@ import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 //import java.lang.*;
@@ -104,6 +105,11 @@ private static java.sql.ResultSet Rss;
         UpdateBtn.setForeground(new java.awt.Color(153, 153, 255));
         UpdateBtn.setText("Update");
         UpdateBtn.setBorder(new javax.swing.border.MatteBorder(null));
+        UpdateBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                UpdateBtnMouseClicked(evt);
+            }
+        });
         UpdateBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 UpdateBtnActionPerformed(evt);
@@ -404,6 +410,28 @@ private static java.sql.ResultSet Rss;
             }
         }
     }//GEN-LAST:event_DeleteBtnMouseClicked
+
+    private void UpdateBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_UpdateBtnMouseClicked
+        // TODO add your handling code here:
+        if(emailVar.getText().isEmpty() || passVar.getText().isEmpty()){
+            JOptionPane.showMessageDialog(this, "Missing infomation !!!");
+        } else {
+            try{
+            Con = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=qlbh_onl;encrypt=true;trustServerCertificate=true;", "kubi", "28112001");
+            PreparedStatement add = Con.prepareStatement("UPDATE ACCOUNT SET Email = ?, Pass = ?, Roles = ? WHERE Email = ?");
+            String email = emailVar.getText();
+            add.setString(1, email);
+            add.setInt(2, Integer.valueOf(passVar.getText()));
+            add.setString(3, roleVar.getSelectedItem().toString());
+            add.setString(4, email);
+            add.executeUpdate();
+            SelectAccount();
+            JOptionPane.showMessageDialog(this, "Information have been Updated !!!");
+            }catch(SQLException e){
+                e.printStackTrace();
+            }
+        }
+    }//GEN-LAST:event_UpdateBtnMouseClicked
     /**
      * @param args the command line arguments
      */
