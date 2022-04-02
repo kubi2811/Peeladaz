@@ -382,7 +382,10 @@ private static java.sql.ResultSet Rss;
             try{
             Con = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=qlbh_onl;encrypt=true;trustServerCertificate=true;", "kubi", "28112001");
             String sEmail = emailVar.getText();
-            String Query = "Delete from dbo.ACCOUNT where Email=" + sEmail;
+            String Query = "Delete from dbo.ACCOUNT where Email='GIAMINH'" + sEmail;
+            PreparedStatement add = Con.prepareStatement("DELELE  from dbo.ACCOUNT where Email = ?");
+            add.setString(1, sEmail);
+            
             Statement Add = Con.createStatement();
             Add.executeUpdate(Query);
             SelectAccount();
