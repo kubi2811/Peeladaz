@@ -7,7 +7,7 @@ package supermarket;
 //import com.sun.jdi.connect.spi.Connection;
 import java.sql.Statement;
 import java.sql.ResultSet;
-import java.sql.Driver;
+//import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,16 +15,28 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 //import java.lang.*;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.*;
+import java.awt.*;
+import java.net.URL;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import net.proteanit.sql.DbUtils;
+import java.util.Base64;
+import java.util.HexFormat;
 /**
  *
  * @author ranco
  */
 public class Account extends javax.swing.JFrame {
 
-    public Account() {
+    public Account() throws IOException {
         initComponents();
         SelectAccount();
+        Demo();
     }
 
 Connection Con = null;
@@ -51,6 +63,7 @@ private static java.sql.ResultSet Rss;
         jScrollPane1 = new javax.swing.JScrollPane();
         AccountsTable = new javax.swing.JTable();
         jLabel11 = new javax.swing.JLabel();
+        jl = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -170,9 +183,17 @@ private static java.sql.ResultSet Rss;
                 {null, null, null}
             },
             new String [] {
-                "Email", "Pass", "Roles"
+                "EmailGM", "Pass", "Roles"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                true, false, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         AccountsTable.setGridColor(new java.awt.Color(51, 51, 255));
         AccountsTable.setIntercellSpacing(new java.awt.Dimension(0, 0));
         AccountsTable.setRowHeight(25);
@@ -211,15 +232,17 @@ private static java.sql.ResultSet Rss;
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 97, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addGap(39, 39, 39)
-                        .addComponent(passVar, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addComponent(DeleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(209, 209, 209))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addComponent(ClearBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(35, 35, 35)))
+                        .addGap(35, 35, 35))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jl, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                            .addComponent(jLabel7)
+                            .addGap(39, 39, 39)
+                            .addComponent(passVar, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(67, 67, 67))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
@@ -249,10 +272,12 @@ private static java.sql.ResultSet Rss;
                         .addComponent(passVar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel7)))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(roleVar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(99, 99, 99)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel6)
+                        .addComponent(roleVar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jl, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(41, 41, 41)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(UpdateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(AddBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -421,7 +446,7 @@ private static java.sql.ResultSet Rss;
             PreparedStatement add = Con.prepareStatement("UPDATE ACCOUNT SET Email = ?, Pass = ?, Roles = ? WHERE Email = ?");
             String email = emailVar.getText();
             add.setString(1, email);
-            add.setInt(2, Integer.valueOf(passVar.getText()));
+            add.setInt(2, Integer.valueOf(passVar.getText()));  
             add.setString(3, roleVar.getSelectedItem().toString());
             add.setString(4, email);
             add.executeUpdate();
@@ -432,10 +457,39 @@ private static java.sql.ResultSet Rss;
             }
         }
     }//GEN-LAST:event_UpdateBtnMouseClicked
+    public void Demo() throws IOException {
+//        try{
+//            Con = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=qlbh_onl;encrypt=true;trustServerCertificate=true;", "kubi", "28112001");
+//            PreparedStatement add = Con.prepareStatement("SELECT Img from dbo.PRODUCT ");
+//            String url = null;
+//            add.setString(1, url);
+//        } catch (Exception e){
+//            e.printStackTrace();
+//        }
+
+        URL url = new URL("https://res.cloudinary.com/phatchaukhang/image/upload/c_scale,w_100/v1648455729/cld-sample.jpg");
+//        URL url = new URL("str");
+        Image image = ImageIO.read(url);
+        ImageIcon ii = new ImageIcon(image);
+        jl.setIcon(ii); 
+//        = new JLabel("Hourglass", ii, JLabel.CENTER);
+        
+//        setSize(200, 200);
+//        setVisible(true);
+    }
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static byte[] hexStringToByteArray(String hex) {
+    int l = hex.length();
+    byte[] data = new byte[l / 2];
+    for (int i = 0; i < l; i += 2) {
+        data[i / 2] = (byte) ((Character.digit(hex.charAt(i), 16) << 4)
+                + Character.digit(hex.charAt(i + 1), 16));
+    }
+    return data;
+}
+    public static void main(String args[]) throws IOException {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -463,9 +517,16 @@ private static java.sql.ResultSet Rss;
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Account().setVisible(true);
+                try {
+                    new Account().setVisible(true);
+                } catch (IOException ex) {
+                    Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
+//        Demo();
+        
+       
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -484,6 +545,7 @@ private static java.sql.ResultSet Rss;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel jl;
     private javax.swing.JTextField passVar;
     private javax.swing.JComboBox<String> roleVar;
     // End of variables declaration//GEN-END:variables

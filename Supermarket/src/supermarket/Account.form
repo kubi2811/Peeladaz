@@ -105,17 +105,20 @@
                       <EmptySpace pref="97" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
-                              <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
-                              <Component id="passVar" min="-2" pref="191" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="1" attributes="0">
                               <Component id="DeleteBtn" min="-2" pref="86" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="209" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="ClearBtn" min="-2" pref="86" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="103" alignment="1" groupAlignment="0" attributes="0">
+                              <Component id="jl" alignment="0" min="-2" pref="212" max="-2" attributes="0"/>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
+                                  <Component id="passVar" min="-2" pref="191" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
                       </Group>
                       <EmptySpace min="-2" pref="67" max="-2" attributes="0"/>
@@ -157,11 +160,14 @@
                           </Group>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="roleVar" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="roleVar" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="jl" min="-2" pref="82" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="99" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="UpdateBtn" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
                           <Component id="AddBtn" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
@@ -367,8 +373,8 @@
                     </Property>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                       <Table columnCount="3" rowCount="4">
-                        <Column editable="true" title="Email" type="java.lang.Object"/>
-                        <Column editable="true" title="Pass" type="java.lang.Object"/>
+                        <Column editable="true" title="EmailGM" type="java.lang.Object"/>
+                        <Column editable="false" title="Pass" type="java.lang.Object"/>
                         <Column editable="true" title="Roles" type="java.lang.Object"/>
                       </Table>
                     </Property>
@@ -421,6 +427,8 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="ACCOUNTS LIST"/>
               </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jl">
             </Component>
           </SubComponents>
         </Container>
