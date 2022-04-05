@@ -466,8 +466,9 @@ private static java.sql.ResultSet Rss;
 //        } catch (Exception e){
 //            e.printStackTrace();
 //        }
-
-        URL url = new URL("https://res.cloudinary.com/phatchaukhang/image/upload/c_scale,w_100/v1648455729/cld-sample.jpg");
+        String link = null;
+        link = "https://res.cloudinary.com/phatchaukhang/image/upload/c_scale,w_100/v1648455729/cld-sample.jpg";
+        URL url = new URL(link);
 //        URL url = new URL("str");
         Image image = ImageIO.read(url);
         ImageIcon ii = new ImageIcon(image);
