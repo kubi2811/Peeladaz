@@ -65,6 +65,7 @@ private static java.sql.ResultSet Rss;
         jLabel11 = new javax.swing.JLabel();
         jl = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -219,10 +220,10 @@ private static java.sql.ResultSet Rss;
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                             .addComponent(jLabel2)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(emailVar, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 81, Short.MAX_VALUE)
                             .addGap(18, 18, 18)
                             .addComponent(roleVar, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -294,24 +295,33 @@ private static java.sql.ResultSet Rss;
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("X");
 
+        jLabel4.setFont(new java.awt.Font("Arial", 1, 20)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("PEELADAZ");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(134, Short.MAX_VALUE)
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel9)
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 122, Short.MAX_VALUE)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(26, 26, 26))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jLabel9)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(21, Short.MAX_VALUE))
@@ -332,33 +342,122 @@ private static java.sql.ResultSet Rss;
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void emailVarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailVarActionPerformed
+    private void AccountsTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AccountsTableMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_emailVarActionPerformed
+        DefaultTableModel model = (DefaultTableModel)AccountsTable.getModel ();
+        int Myindex = AccountsTable.getSelectedRow();
+        emailVar.setText (model.getValueAt (Myindex, 0).toString());
+        passVar.setText (model.getValueAt (Myindex, 1).toString());
+    }//GEN-LAST:event_AccountsTableMouseClicked
 
-    private void passVarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passVarActionPerformed
+    private void ClearBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClearBtnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_passVarActionPerformed
+    }//GEN-LAST:event_ClearBtnActionPerformed
 
-    private void roleVarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_roleVarActionPerformed
+    private void ClearBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ClearBtnMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_roleVarActionPerformed
-
-    private void UpdateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateBtnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_UpdateBtnActionPerformed
-
-    private void AddBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddBtnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_AddBtnActionPerformed
+        emailVar.setText("");
+        passVar.setText("");
+    }//GEN-LAST:event_ClearBtnMouseClicked
 
     private void DeleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteBtnActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_DeleteBtnActionPerformed
 
-    private void ClearBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClearBtnActionPerformed
+    private void DeleteBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DeleteBtnMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_ClearBtnActionPerformed
+        if(emailVar.getText().isEmpty()){
+            JOptionPane.showMessageDialog(this, "Click Account you want to delete !!!");
+        } else {
+            try{
+                Con = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=qlbh_onl;encrypt=true;trustServerCertificate=true;", "kubi", "28112001");
+                //            String sEmail = emailVar.getText();
+                //            String Query = "Delete from dbo.ACCOUNT where Email='GIAMINH'" + sEmail;
+                PreparedStatement add = Con.prepareStatement("DELETE FROM PARTNERS where Email =?");
+                add.setString(1, emailVar.getText());
+                add.executeUpdate();
+
+                PreparedStatement add3 = Con.prepareStatement("DELETE FROM SHIPPER where Email =?");
+                add3.setString(1, emailVar.getText());
+                add3.executeUpdate();
+
+                PreparedStatement add2 = Con.prepareStatement("DELETE FROM ACCOUNT where Email =?");
+                add2.setString(1, emailVar.getText());
+                add2.executeUpdate();
+                //            Statement Add = Con.createStatement();
+
+                //            Add.executeUpdate(Query);
+                SelectAccount();
+                JOptionPane.showMessageDialog(this, "Account Deleted Successfully");
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+    }//GEN-LAST:event_DeleteBtnMouseClicked
+
+    private void AddBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_AddBtnActionPerformed
+
+    private void AddBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AddBtnMouseClicked
+        // TODO add your handling code here:
+        if (emailVar.getText().isEmpty() || passVar.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Missing infomation !!!");
+        } else {
+
+        }
+        try{
+            Con = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=qlbh_onl;encrypt=true;trustServerCertificate=true;", "kubi", "28112001");
+            PreparedStatement add = Con.prepareStatement("insert into ACCOUNT values(?,?,?)");
+            add.setString(1, emailVar.getText());
+            add.setInt(2, Integer.valueOf(passVar.getText()));
+            add.setString(3, roleVar.getSelectedItem().toString());
+            int row =  add.executeUpdate();
+            JOptionPane.showMessageDialog(this, "Account have just been added !!!");
+            Con.close();
+            SelectAccount();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_AddBtnMouseClicked
+
+    private void UpdateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_UpdateBtnActionPerformed
+
+    private void UpdateBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_UpdateBtnMouseClicked
+        // TODO add your handling code here:
+        if(emailVar.getText().isEmpty() || passVar.getText().isEmpty()){
+            JOptionPane.showMessageDialog(this, "Missing infomation !!!");
+        } else {
+            try{
+                Con = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=qlbh_onl;encrypt=true;trustServerCertificate=true;", "kubi", "28112001");
+                PreparedStatement add = Con.prepareStatement("UPDATE ACCOUNT SET Email = ?, Pass = ?, Roles = ? WHERE Email = ?");
+                String email = emailVar.getText();
+                add.setString(1, email);
+                add.setInt(2, Integer.valueOf(passVar.getText()));
+                add.setString(3, roleVar.getSelectedItem().toString());
+                add.setString(4, email);
+                add.executeUpdate();
+                SelectAccount();
+                JOptionPane.showMessageDialog(this, "Information have been Updated !!!");
+            }catch(SQLException e){
+                e.printStackTrace();
+            }
+        }
+    }//GEN-LAST:event_UpdateBtnMouseClicked
+
+    private void roleVarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_roleVarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_roleVarActionPerformed
+
+    private void passVarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passVarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_passVarActionPerformed
+
+    private void emailVarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailVarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_emailVarActionPerformed
     public void SelectAccount() {
         try{
             Con = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=qlbh_onl;encrypt=true;trustServerCertificate=true;", "kubi", "28112001");
@@ -368,95 +467,7 @@ private static java.sql.ResultSet Rss;
         } catch (Exception e){
             e.printStackTrace();
         }
-    }
-    private void AddBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AddBtnMouseClicked
-        // TODO add your handling code here:
-        if (emailVar.getText().isEmpty() || passVar.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Missing infomation !!!");
-        } else {
-            
-        }
-        try{
-            Con = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=qlbh_onl;encrypt=true;trustServerCertificate=true;", "kubi", "28112001");
-            PreparedStatement add = Con.prepareStatement("insert into ACCOUNT values(?,?,?)");
-                add.setString(1, emailVar.getText());
-                add.setInt(2, Integer.valueOf(passVar.getText()));
-                add.setString(3, roleVar.getSelectedItem().toString());
-                int row =  add.executeUpdate();
-                JOptionPane.showMessageDialog(this, "Account have just been added !!!");
-                Con.close();
-                SelectAccount();
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-    }//GEN-LAST:event_AddBtnMouseClicked
-
-    private void AccountsTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AccountsTableMouseClicked
-        // TODO add your handling code here:
-        DefaultTableModel model = (DefaultTableModel)AccountsTable.getModel ();
-        int Myindex = AccountsTable.getSelectedRow();
-        emailVar.setText (model.getValueAt (Myindex, 0).toString());
-        passVar.setText (model.getValueAt (Myindex, 1).toString());
-    }//GEN-LAST:event_AccountsTableMouseClicked
-
-    private void ClearBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ClearBtnMouseClicked
-        // TODO add your handling code here:
-        emailVar.setText("");
-        passVar.setText("");
-    }//GEN-LAST:event_ClearBtnMouseClicked
-
-    private void DeleteBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DeleteBtnMouseClicked
-        // TODO add your handling code here:
-        if(emailVar.getText().isEmpty()){
-            JOptionPane.showMessageDialog(this, "Click Account you want to delete !!!");
-        } else {
-            try{
-            Con = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=qlbh_onl;encrypt=true;trustServerCertificate=true;", "kubi", "28112001");
-//            String sEmail = emailVar.getText();
-//            String Query = "Delete from dbo.ACCOUNT where Email='GIAMINH'" + sEmail;
-            PreparedStatement add = Con.prepareStatement("DELETE FROM PARTNERS where Email =?");
-            add.setString(1, emailVar.getText());
-            add.executeUpdate();
-            
-            PreparedStatement add3 = Con.prepareStatement("DELETE FROM SHIPPER where Email =?");
-            add3.setString(1, emailVar.getText());
-            add3.executeUpdate();
-            
-            PreparedStatement add2 = Con.prepareStatement("DELETE FROM ACCOUNT where Email =?");
-            add2.setString(1, emailVar.getText());
-            add2.executeUpdate();
-//            Statement Add = Con.createStatement();
-            
-//            Add.executeUpdate(Query);
-            SelectAccount();
-            JOptionPane.showMessageDialog(this, "Account Deleted Successfully");
-            } catch (Exception e){
-                e.printStackTrace();
-            }
-        }
-    }//GEN-LAST:event_DeleteBtnMouseClicked
-
-    private void UpdateBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_UpdateBtnMouseClicked
-        // TODO add your handling code here:
-        if(emailVar.getText().isEmpty() || passVar.getText().isEmpty()){
-            JOptionPane.showMessageDialog(this, "Missing infomation !!!");
-        } else {
-            try{
-            Con = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=qlbh_onl;encrypt=true;trustServerCertificate=true;", "kubi", "28112001");
-            PreparedStatement add = Con.prepareStatement("UPDATE ACCOUNT SET Email = ?, Pass = ?, Roles = ? WHERE Email = ?");
-            String email = emailVar.getText();
-            add.setString(1, email);
-            add.setInt(2, Integer.valueOf(passVar.getText()));  
-            add.setString(3, roleVar.getSelectedItem().toString());
-            add.setString(4, email);
-            add.executeUpdate();
-            SelectAccount();
-            JOptionPane.showMessageDialog(this, "Information have been Updated !!!");
-            }catch(SQLException e){
-                e.printStackTrace();
-            }
-        }
-    }//GEN-LAST:event_UpdateBtnMouseClicked
+    }    
     public void Demo() throws IOException {
 //        try{
 //            Con = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=qlbh_onl;encrypt=true;trustServerCertificate=true;", "kubi", "28112001");
@@ -540,6 +551,7 @@ private static java.sql.ResultSet Rss;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel9;
